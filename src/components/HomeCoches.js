@@ -21,8 +21,20 @@ export default class HomeCoches extends Component {
 
     }
 
+    deleteCoche = (idCoche) => {
+        console.log(idCoche);
+        let request = "api/coches/deletecoche/"+idCoche;
+        let url = Global.urlApiCoches + request;
+        console.log(url)
+        axios.delete(url).then(response => {
+            console.log("Delete coche...")
+            this.loadCoches();
+        })
+    }
+
     componentDidMount = () => {
         this.loadCoches();
+        
     }
 
 
@@ -56,7 +68,8 @@ export default class HomeCoches extends Component {
                                 <td>
                                     <NavLink to={'/detalle/'+coche.idCoche} className='btn btn-info'>Detalle</NavLink>
                                     <NavLink to={'/update/'+coche.idCoche} className='btn btn-warning'>Editar</NavLink>
-                                    <NavLink to={'/delete'} className='btn btn-danger'>Eliminar</NavLink>
+                                    {/* <NavLink to={'/delete/'+coche.idCoche} className='btn btn-danger'>Eliminar</NavLink> */}
+                                    <button onClick={ () => { this.deleteCoche(coche.idCoche)}} className='btn btn-danger'>Eliminar</button>
                                 </td>
                             </tr>
                         );
